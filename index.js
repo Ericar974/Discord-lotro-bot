@@ -79,8 +79,8 @@ function getRandomGif(gifs) {
     return gifs[a]
 }
 const gifAsk = [
-    "https://tenor.com/view/gandalf-awizard-is-never-later-gif-11324448",
-    "https://tenor.com/view/iam-looking-for-someone-to-share-in-an-adventure-gandalf-ian-mc-kellen-lord-of-the-rings-gif-15651459",
+    "https://tenor.com/view/gandalf-awizard-is-never-later-gif-11324448", 
+    "https://tenor.com/view/iam-looking-for-someone-to-share-in-an-adventure-gandalf-ian-mc-kellen-lord-of-the-rings-gif-15651459", 
     "https://tenor.com/view/gandalf-decide-lord-of-the-rings-gif-12825539", 
     "https://tenor.com/view/lord-of-the-rings-gandalf-indeed-gif-18505269", 
     "https://tenor.com/view/gandalf-paper-reading-old-lord-of-the-rings-gif-16045045", 
