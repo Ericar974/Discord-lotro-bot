@@ -1,3 +1,5 @@
+/**********************************************CONSTS********************************************************************/
+
 const Discord = require('discord.js');
 
 const Client = new Discord.Client;
@@ -6,6 +8,17 @@ const prefix = "&"
 
 const idServer = "819663166720049172"
 
+const idChanSpam = "819676341502607380"
+
+const  idChanGandalf = "821532392191033384"
+
+//commandes du bot
+const CPB1   = "     -   &PB1    - Remmorchant phases du boss 1 + phases de la semaine prochaine\n"
+const CCAPS  = "     -   &CAPS   - Tout les caps de stats + courbe d'évolution\n"
+//Commandes secrète Admin
+//&Strat pour actionner les gifs raids dans le salon souhaité... A faire à l'heure souhaité
+
+
 //id des roles
 const roleT1 = "819898201305776158"
 const roleT2 = "819898824427438090"
@@ -13,9 +26,21 @@ const roleT3 = "819899050693623858"
 const roleT4 = "819899231292096512"
 
 //id des messages pour retirer/ajouter role
-const msgRemoveT1 = "820743150002765875"
-const msgRemoveT2 = "820736677818925066"
-const msgRemoveT3 = "820737233459871755"
+const msgRemoveT1 = "821521294041808896"
+const msgRemoveT2 = "821522260296073236"
+const msgRemoveT3 = "821522156340641904"
+
+//Const pour PB1
+const phaseB1 = ["Foudre & Acide", "Foudre & Feu", "Acide & Foudre", "Acide & Feu", "Feu & Foudre", "Feu & Acide"]
+let i = ''
+let j = ''
+
+//Tableau de messages
+const usersMap = new Map();
+
+/**********************************************FUNCTIONS********************************************************************/
+
+
 
 function addRole(reaction, user, role) {
     var member = reaction.message.guild.members.cache.find(member => member.id === user.id);
@@ -37,17 +62,43 @@ function removeRole(reaction, user, role) {
 
 function stockMsg(guildId, channelId, msgId) {
     Client.guilds.cache.find(guild => guild.id === guildId).channels.cache.find(channel => channel.id === channelId).messages.fetch(msgId).then(message => {
-        console.log("message ajouté à la mémoire : " + message.content);
+        console.log("message ajouté à la mémoire: " + message.content);
     }).catch(err =>{
         console.log("Impossible d'ajouté le message en mémoire : " + err);
     });
 }
+// reaction aux spam :
 
+function spamReaction (msg){
+    if(usersMap.has(msg)){
+        const userData = usersMap.get(msg)
+        let msgCount = userData.msgCount;
+        msgCount++
+        userData.msgCount = msgCount
+        usersMap.set(msg, userData)
+        
+    }else {
+        usersMap.set(msg, {
+            msgCount: 1,
+            lastMessage: msg
+        });
+        setTimeout(()=> {
+            usersMap.delete(msg)
+        }, 60000);
+    }
+    if(usersMap.size === ( 8 + getRandomInt(10))){
+        msg.channel.send(getRandomGif(gifHigh))
+        setTimeout(()=> {
+            msg.channel.send(getRandomGif(gifEmotion))
+        }, 40000);
+        setTimeout(()=> {
+            msg.channel.send(getRandomGif(gifHigh))
+        }, 80000);
+    }
+}
 
 //Strat des boss
-const phaseB1 = ["Foudre & Acide", "Foudre & Feu", "Acide & Foudre", "Acide & Feu", "Feu & Foudre", "Feu & Acide"]
-let i = ''
-let j = ''
+
 function datePB1() {
    var x = Date.now() - 1615449600000
         if( x % 3628800000 <= 604800000){
@@ -78,37 +129,87 @@ function getRandomGif(gifs) {
     let a = getRandomInt(gifs.length)
     return gifs[a]
 }
+
+
+/*********************************************TABLE GIF************************************************************/
+
+
 const gifAsk = [
-    "https://tenor.com/view/gandalf-awizard-is-never-later-gif-11324448", 
-    "https://tenor.com/view/iam-looking-for-someone-to-share-in-an-adventure-gandalf-ian-mc-kellen-lord-of-the-rings-gif-15651459", 
+    "https://tenor.com/view/gandalf-awizard-is-never-later-gif-11324448",
+    "https://tenor.com/view/iam-looking-for-someone-to-share-in-an-adventure-gandalf-ian-mc-kellen-lord-of-the-rings-gif-15651459",
     "https://tenor.com/view/gandalf-decide-lord-of-the-rings-gif-12825539", 
     "https://tenor.com/view/lord-of-the-rings-gandalf-indeed-gif-18505269", 
-    "https://tenor.com/view/gandalf-paper-reading-old-lord-of-the-rings-gif-16045045", 
+    "https://tenor.com/view/gandalf-paper-reading-old-lord-of-the-rings-gif-16045045",
+    "https://64.media.tumblr.com/f730cd32b5830e5713495775f4c7a756/tumblr_mf8mepiFxY1qeeqito4_250.gif"
+
+]
+const gifHigh = [
+    "https://64.media.tumblr.com/f730cd32b5830e5713495775f4c7a756/tumblr_mf8mepiFxY1qeeqito4_250.gif",
+    "https://media0.giphy.com/media/alHsoibvNDWyA/giphy.gif", 
+    "https://media0.giphy.com/media/9hFH5Juijroze/giphy.gif", 
+    "https://media1.giphy.com/media/Qs75BqLW44RrP0x6qL/giphy.gif",
+    "https://media.giphy.com/media/QZdI4k7q1BsSk/giphy.gif",
+    "https://media.giphy.com/media/l0IyiaAKygKOL924o/giphy.gif",
+    "https://media.giphy.com/media/HmIkHqoyhY9Vu/giphy.gif",
+    "https://media.giphy.com/media/L8gwJqDNAQORy/giphy.gif",
+    "https://media.giphy.com/media/z5VgvsFtpwC52/giphy.gif",
+    "https://media.giphy.com/media/ABNPHNbhi8I5q/giphy.gif",
+
+]
+const gifEmotion = [
+    "https://media3.giphy.com/media/oM5xTkZM5N1ZK/200w.webp?cid=ecf05e47ekf3vkvsdf04idys2gi1u8ii2s7sihom4yczr94s&rid=200w.webp",
+    "https://media0.giphy.com/media/AlhnCfu6SuSD6/giphy.gif",
+    "https://media2.giphy.com/media/HAx8k1165YkWQ/giphy.gif",
+    "https://media4.giphy.com/media/74ExXfqsbJ8l2/giphy.gif",
+    "https://media3.giphy.com/media/gqkKc6RI2sa7C/giphy.gif",
+    "https://media4.giphy.com/media/HS7ueRS113iN2/giphy.gif",
+    "https://media.giphy.com/media/S6sZaHdqsGYFO/giphy.gif",
 ]
 
+const gifRaid = [
+    ["https://64.media.tumblr.com/tumblr_maf90va4l91ru8yv8o2_250.gif", "Wype time !\n"],//raid
+    ["https://64.media.tumblr.com/tumblr_maf90va4l91ru8yv8o3_250.gif", "Bon wypes à tous\n"],//wype is ok
+    ["https://media1.giphy.com/media/61tYloUgq1eOk/giphy.gif", "Allez vous préparez pour votre raid !\n"],//raid
+    ["https://media3.giphy.com/media/13aEHIldkd7Ous/giphy.gif?cid=ecf05e47a90ylu1mj4hkmyjx33uxkkf3gp6n8jjav9mk8lnz&rid=giphy.gif", "Attention a celui qui vas tanker ce soir\n"], //raid
+    ["https://tenor.com/view/lotr-saruman-gandalf-spin-gif-16037094", "*est en train de faire Orthanc T2*\n"],//orthanc
+    ["https://tenor.com/view/gandalf-paper-reading-old-lord-of-the-rings-gif-16045045", "Chut !! Je lis la strat de ce soir\n"],//strat
+    ["https://tenor.com/view/gandalf-awizard-is-never-later-gif-11324448", "C'est l'heure de raid !\n"],//retard
+]
+    
 
-//
-//
-//
-//
+/*********************************************START************************************************************/
+
+
+
 // A la connexion du bot / démarrage :
 
 Client.on("ready", () =>{
     console.log("bot opérationnel");
 
     //récupère un message en mémoire :
-    stockMsg(idServer, "819676341502607380", msgRemoveT1)
-    stockMsg(idServer,"819677700897112164", msgRemoveT2)
-    stockMsg(idServer, "819677898910203905", msgRemoveT3)
+    stockMsg(idServer, "819676553235529759", msgRemoveT1)
+    stockMsg(idServer,"819676569207308348", msgRemoveT2)
+    stockMsg(idServer, "819676528992321607", msgRemoveT3)
 });
+
+
+
+
 
 //A l'arrivé d'un membre dans le serveur :
 
 Client.on("guildMemberAdd", member => {
     console.log("Un nouveau membre est arrivé");
 
+    var embed = new Discord.MessageEmbed()
+        .setColor("#6575AC")
+        .setTitle('Un nouveau membre nous à rejoints !')
+        .setDescription(member.user.toString() + ", Bienvenue dans le Hall des PU !\n\n\n- Présentation du serveur -> <#819684543820464159>\n\n- Channel de discussions -> <#819676341502607380>\n\n- Outils pour raid -> [lotro.fr](https://lotro.fr/) *Pas de compte ? clique [ici](https://lotro.fr/forum/index.php?action=register)*\n"  )
+        .setThumbnail(member.user.displayAvatarURL())    
+
     //Message de bienvenue
-    member.guild.channels.cache.find(channel => channel.id === "819663166720049174").send("Bienvenue à toi " + member.displayName + " !\nNous sommes désormais **" + member.guild.memberCount + "** sur le serveur !");
+    member.guild.channels.cache.find(channel => channel.id === "819663166720049174").send(embed);
+    //member.guild.channels.cache.find(channel => channel.id === "819663166720049174").send("Bienvenue à toi " + member.displayName + " !\nNous sommes désormais **" + member.guild.memberCount + "** sur le serveur !");
 
     //Ajoute un rôle
     member.roles.add(roleT1).then(mbr => {
@@ -118,12 +219,14 @@ Client.on("guildMemberAdd", member => {
     });
 });
 
+
+
+
+
 //Reactions au message :
 
 Client.on("messageReactionAdd", (reaction, user) => {
     if(user.bot) return;
-
-    console.log(user.username + ' à réagit avec' + reaction.emoji.name);
 
     if(reaction.message.id === msgRemoveT1){
         if(reaction.emoji.name === "1️⃣"){
@@ -156,12 +259,17 @@ Client.on("messageReactionAdd", (reaction, user) => {
     */
 });
 
+
+
+
+
+
+
+
 //Quand une réaction est enlever :
 
 Client.on("messageReactionRemove", (reaction, user) => {
     if(user.bot) return;
-    
-    console.log("reaction retirer");
 
     if(reaction.message.id === msgRemoveT1){
         if(reaction.emoji.name === "1️⃣"){
@@ -184,12 +292,44 @@ Client.on("messageReactionRemove", (reaction, user) => {
     }
 });
 
+
+
+
+
+
+
+
 //Action lors d'un message :
+var active = false
 
 Client.on("message", content => {
-    if(content.author.bot) return;
+    if(content.author.bot)return;
     if(content.channel.type == "dm") return;
+    
+    if(content.channel.id === idChanSpam){
+        spamReaction(content)
+    }
 
+
+    if(content.channel.id === idChanGandalf){
+        //commandes
+        if(content.content == prefix + "?" && content.member.hasPermission("ADMINISTRATOR")){
+                let b = getRandomGif(gifAsk)
+                content.channel.send(b)
+                content.channel.send("```py\n\"Commandes disponibles : (Je ne répond pas aux messages privés)\n\n" + CPB1 + CCAPS + "\n- Gandalf le gris.\"```")
+            
+        }else if(content.content == prefix + 'PB1'){
+                datePB1()
+                content.author.send("```py\n\"Cette semaine : " + i + "\"```")
+                content.author.send("```fix\nJeudi prochain : " + j + "```")
+            
+        }else if(content.content == prefix + 'CAPS'){
+                content.author.send('```py\n"Caps du lvl 130 :"```', {files: ['./img/stat.png']}) 
+                content.author.send('```py\n"Courbe d\'évolution des chances de critique : \n(les autres statistiques fonctionnent de la même façon)"```', {files: ['./img/courbe.png']})
+            
+        }
+        content.delete()
+    }
     /*
     content.react("1️⃣");
     content.react("2️⃣"); 
@@ -197,25 +337,35 @@ Client.on("message", content => {
     content.react("4️⃣");
     */
 
-
-    if(content.content == prefix + '?'){
-        let b = getRandomGif(gifAsk)
-        content.channel.send(b)
-        content.channel.send("```py\n\"Voici les commandes disponibles :\n\n    - '&PB1' Phases actuelles du boss 1 de Remmorchant\n-   - '&PB1+1' Phases de la semaine prochaine du meme boss\"```")
-    }else if(content.content == prefix + 'PB1'){
-        datePB1()
-        content.channel.send(i)
-    }else if(content.content == prefix + 'PB1+1'){
-        datePB1()
-        content.channel.send(j)
-    }
-
     
+
+
+
+//Commandes Admin Gif Raid Reactions
+    if(content.content == prefix + "Start" && content.member.hasPermission("ADMINISTRATOR")){
+        content.channel.send("```py\n\"Mise en place effectuée\"```")
+        setInterval(() => {
+            var u = new Date().getHours()
+            var v = getRandomInt(6)
+            if((u === 20) && (v === 1)){
+                let w = getRandomGif(gifRaid)
+                content.channel.send(w[1] + w[0])
+                console.log("Gifs de raid dernier check : " + new Date())
+            }else{
+                console.log("Gifs de raid dernier check : " + new Date())
+            }
+            
+        },86400000)
+    }
 
 });
 
 
 
-//Connexion du bot au serveur : 
 
+
+/****************************************CONNEXION****************************************************/
+
+
+//Connexion du bot au serveur :
 Client.login(process.env.TOKEN);
