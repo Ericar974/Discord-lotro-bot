@@ -344,6 +344,7 @@ Client.on("message", content => {
 //Commandes Admin Gif Raid Reactions
     if(content.content == prefix + "Start" && content.member.hasPermission("ADMINISTRATOR")){
         content.channel.send("```py\n\"Mise en place effectuée\"```")
+        console.log("Start of StartGifraid")
         setInterval(() => {
             var u = new Date().getHours()
             var v = getRandomInt(6)
