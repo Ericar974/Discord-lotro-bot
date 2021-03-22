@@ -25,6 +25,8 @@ const roleT2 = "819898824427438090"
 const roleT3 = "819899050693623858"
 const roleT4 = "819899231292096512"
 
+const down = "822034145277378593"
+
 //id des messages pour retirer/ajouter role
 const msgRemoveT1 = "821521294041808896"
 const msgRemoveT2 = "821522260296073236"
@@ -217,6 +219,12 @@ Client.on("guildMemberAdd", member => {
     }).catch(() => {
         console.log("Le rôle n'a pas pu être attribué");
     });
+
+    member.roles.add(down).then(mbr => {
+        console.log("Rôle attribué avec succès")
+    }).catch(() => {
+        console.log("Le rôle n'a pas pu être attribué");
+    });
 });
 
 
@@ -300,12 +308,10 @@ Client.on("messageReactionRemove", (reaction, user) => {
 
 
 //Action lors d'un message :
-var active = false
 
 Client.on("message", content => {
     if(content.author.bot)return;
     if(content.channel.type == "dm") return;
-    
     if(content.channel.id === idChanSpam){
         spamReaction(content)
     }
@@ -341,7 +347,7 @@ Client.on("message", content => {
 
 
 
-//Commandes Admin Gif Raid Reactions
+/*Commandes Admin Gif Raid Reactions
     if(content.content == prefix + "Start" && content.member.hasPermission("ADMINISTRATOR")){
         content.channel.send("```py\n\"Mise en place effectuée\"```")
         console.log("Start of StartGifraid")
@@ -358,6 +364,7 @@ Client.on("message", content => {
             
         },86400000)
     }
+    */
 
 });
 
