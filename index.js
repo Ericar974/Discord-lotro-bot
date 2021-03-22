@@ -25,7 +25,6 @@ const roleT2 = "819898824427438090"
 const roleT3 = "819899050693623858"
 const roleT4 = "819899231292096512"
 
-const down = "822034145277378593"
 
 //id des messages pour retirer/ajouter role
 const msgRemoveT1 = "821521294041808896"
@@ -215,12 +214,6 @@ Client.on("guildMemberAdd", member => {
 
     //Ajoute un rôle
     member.roles.add(roleT1).then(mbr => {
-        console.log("Rôle attribué avec succès")
-    }).catch(() => {
-        console.log("Le rôle n'a pas pu être attribué");
-    });
-
-    member.roles.add(down).then(mbr => {
         console.log("Rôle attribué avec succès")
     }).catch(() => {
         console.log("Le rôle n'a pas pu être attribué");
