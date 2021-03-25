@@ -324,7 +324,7 @@ Client.on("message", content => {
             
         }else if(content.content == prefix + 'CAPS'){
                 content.author.send('```py\n"Caps du lvl 130 :"```', {files: ['./img/stat.png']}) 
-                content.author.send('```py\n"Courbe d\'évolution des chances de critique : \n(les autres statistiques fonctionnent de la même façon)"```', {files: ['./img/courbe.png']})
+                content.author.send('```py\n"Courbe d\'évolution des chances de critique : \n(les autres statistiques fonctionnent de la même façon)"```', {files: ['./img/courbe.jpg']})
             
         }
         content.delete()
