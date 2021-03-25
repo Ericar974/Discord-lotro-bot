@@ -323,8 +323,8 @@ Client.on("message", content => {
                 content.author.send("```fix\nJeudi prochain : " + j + "```")
             
         }else if(content.content == prefix + 'CAPS'){
-                content.author.send('```py\n"Caps du lvl 130 :"```', {files: ['./img/stat.png']}) 
-                content.author.send('```py\n"Courbe d\'évolution des chances de critique : \n(les autres statistiques fonctionnent de la même façon)"```', {files: ['./img/courbe.jpg']})
+                content.author.send('```py\n"Caps du lvl 130 :"```', {files: ['./img/stat.jpg']}) 
+                content.author.send('```py\n"Courbe d\'évolution des chances de critique : \n(les autres statistiques fonctionnent de la même façon)"```', {files: ['./img/courbe.png']})
             
         }
         content.delete()
