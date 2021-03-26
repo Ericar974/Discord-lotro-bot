@@ -87,7 +87,7 @@ function spamReaction (msg){
             usersMap.delete(msg)
         }, 60000);
     }
-    if(usersMap.size === ( 8 + getRandomInt(10))){
+    if(usersMap.size === ( 20 + getRandomInt(10))){
         msg.channel.send(getRandomGif(gifHigh))
         setTimeout(()=> {
             msg.channel.send(getRandomGif(gifEmotion))
