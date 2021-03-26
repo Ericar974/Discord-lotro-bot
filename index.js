@@ -32,7 +32,7 @@ const msgRemoveT2 = "821522260296073236"
 const msgRemoveT3 = "821522156340641904"
 
 //Const pour PB1
-const phaseB1 = ["Foudre & Acide", "Foudre & Feu", "Acide & Foudre", "Acide & Feu", "Feu & Foudre", "Feu & Acide"]
+const phaseB1 = ["Acide & Foudre", "Acide & Feu", "Feu & Foudre", "Feu & Acide", "Foudre & Acide", "Foudre & Feu"]
 let i = ''
 let j = ''
 
