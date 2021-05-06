@@ -241,11 +241,11 @@ Client.on("guildMemberAdd", member => {
     //member.guild.channels.cache.find(channel => channel.id === "819663166720049174").send("Bienvenue à toi " + member.displayName + " !\nNous sommes désormais **" + member.guild.memberCount + "** sur le serveur !");
 
     //Ajoute un rôle
-    member.roles.add(roleT1).then(mbr => {
+    /*member.roles.add(roleT1).then(mbr => {
         console.log("Rôle attribué avec succès")
     }).catch(() => {
         console.log("Le rôle n'a pas pu être attribué");
-    });
+    });*/
 });
 
 
