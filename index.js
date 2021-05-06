@@ -12,6 +12,8 @@ const idChanSpam = "819676341502607380"
 
 const  idChanGandalf = "821532392191033384"
 
+const idChanInfos = "819684543820464159"
+
 //commandes du bot
 const CPB1   = "     -   &PB1    - Remmorchant phases du boss 1 + phases de la semaine prochaine\n"
 const CCAPS  = "     -   &CAPS   - Tout les caps de stats + courbe d'évolution\n"
@@ -30,6 +32,31 @@ const roleT4 = "819899231292096512"
 const msgRemoveT1 = "821521294041808896"
 const msgRemoveT2 = "821522260296073236"
 const msgRemoveT3 = "821522156340641904"
+
+//emoji classe
+const messageClass = "839811316520452097"
+
+const Runekeepericon = "839773926422347787"
+const Wardenicon = "839773923852025906"
+const Loremastericon = "839773923691462656"
+const Captainicon = "839773923611508736"
+const Burglaricon = "839773923519627304"
+const Championicon = "839773923448193025"
+const Minstrelicon = "839773923415556107"
+const Huntericon = "839773923293396993"
+const Guardianicon = "839773923259318283"
+const Beorningicon = "839773923180937236"
+
+const roleRK = '839804210173313046'
+const roleWARD = '839804289870462978'
+const roleLM = '839804293456592916'
+const roleCAP = '839804305736990741'
+const roleBURG = '839804308978925588'
+const roleCHAMP = '839804312862326834'
+const roleMINI = '839804316688580610'
+const roleHUNT = '839804320392282113'
+const roleGUARD = '839804331423563776'
+const roleBEOR = '839804334102544394'
 
 //Const pour PB1
 const phaseB1 = ["Acide & Foudre", "Acide & Feu", "Feu & Foudre", "Feu & Acide", "Foudre & Acide", "Foudre & Feu"]
@@ -70,7 +97,7 @@ function stockMsg(guildId, channelId, msgId) {
 }
 // reaction aux spam :
 
-function spamReaction (msg){
+/*function spamReaction (msg){
     if(usersMap.has(msg)){
         const userData = usersMap.get(msg)
         let msgCount = userData.msgCount;
@@ -96,7 +123,7 @@ function spamReaction (msg){
             msg.channel.send(getRandomGif(gifHigh))
         }, 80000);
     }
-}
+}*/
 
 //Strat des boss
 
@@ -191,6 +218,7 @@ Client.on("ready", () =>{
     stockMsg(idServer, "819676553235529759", msgRemoveT1)
     stockMsg(idServer,"819676569207308348", msgRemoveT2)
     stockMsg(idServer, "819676528992321607", msgRemoveT3)
+    stockMsg(idServer, idChanGandalf, messageClass)
 });
 
 
@@ -247,6 +275,28 @@ Client.on("messageReactionAdd", (reaction, user) => {
         }else if(reaction.emoji.name === "3️⃣"){
             addRole(reaction, user, roleT3)
         }
+    }else if(reaction.message.id === messageClass){
+        if(reaction.emoji.id === Runekeepericon){
+            addRole(reaction, user, roleRK)
+        }else if(reaction.emoji.id === Wardenicon){
+            addRole(reaction, user, roleWARD)
+        }else if(reaction.emoji.id === Loremastericon){
+            addRole(reaction, user, roleLM)
+        }else if(reaction.emoji.id === Captainicon){
+            addRole(reaction, user, roleCAP)
+        }else if(reaction.emoji.id === Burglaricon){
+            addRole(reaction, user, roleBURG)
+        }else if(reaction.emoji.id === Championicon){
+            addRole(reaction, user, roleCHAMP)
+        }else if(reaction.emoji.id === Minstrelicon){
+            addRole(reaction, user, roleMINI)
+        }else if(reaction.emoji.id === Huntericon){
+            addRole(reaction, user, roleHUNT)
+        }else if(reaction.emoji.id === Guardianicon){
+            addRole(reaction, user, roleGUARD)
+        }else if(reaction.emoji.id === Beorningicon){
+            addRole(reaction, user, roleBEOR)
+        }
     }
 
 
@@ -290,6 +340,28 @@ Client.on("messageReactionRemove", (reaction, user) => {
         }else if(reaction.emoji.name === "3️⃣"){
             removeRole(reaction, user, roleT3)
         }
+    }else if(reaction.message.id === messageClass){
+        if(reaction.emoji.id === Runekeepericon){
+            removeRole(reaction, user, roleRK)
+        }else if(reaction.emoji.id === Wardenicon){
+            removeRole(reaction, user, roleWARD)
+        }else if(reaction.emoji.id === Loremastericon){
+            removeRole(reaction, user, roleLM)
+        }else if(reaction.emoji.id === Captainicon){
+            removeRole(reaction, user, roleCAP)
+        }else if(reaction.emoji.id === Burglaricon){
+            removeRole(reaction, user, roleBURG)
+        }else if(reaction.emoji.id === Championicon){
+            removeRole(reaction, user, roleCHAMP)
+        }else if(reaction.emoji.id === Minstrelicon){
+            removeRole(reaction, user, roleMINI)
+        }else if(reaction.emoji.id === Huntericon){
+            removeRole(reaction, user, roleHUNT)
+        }else if(reaction.emoji.id === Guardianicon){
+            removeRole(reaction, user, roleGUARD)
+        }else if(reaction.emoji.id === Beorningicon){
+            removeRole(reaction, user, roleBEOR)
+        }
     }
 });
 
@@ -305,10 +377,9 @@ Client.on("messageReactionRemove", (reaction, user) => {
 Client.on("message", content => {
     if(content.author.bot)return;
     if(content.channel.type == "dm") return;
-    if(content.channel.id === idChanSpam){
+    /*if(content.channel.id === idChanSpam){
         spamReaction(content)
-    }
-
+    }*/
 
     if(content.channel.id === idChanGandalf){
         //commandes
@@ -334,6 +405,16 @@ Client.on("message", content => {
     content.react("2️⃣"); 
     content.react("3️⃣"); 
     content.react("4️⃣");
+    content.react(Runekeepericon)
+        content.react(Wardenicon)
+        content.react(Loremastericon)
+        content.react(Captainicon)
+        content.react(Burglaricon)
+        content.react(Championicon)
+        content.react(Minstrelicon)
+        content.react(Huntericon)
+        content.react(Guardianicon)
+        content.react(Beorningicon)
     */
 
     
@@ -370,3 +451,4 @@ Client.on("message", content => {
 
 //Connexion du bot au serveur :
 Client.login(process.env.TOKEN);
+
