@@ -8,30 +8,13 @@ const prefix = "&"
 
 const idServer = "819663166720049172"
 
-const idChanSpam = "819676341502607380"
-
 const  idChanGandalf = "821532392191033384"
-
-const idChanInfos = "819684543820464159"
 
 //commandes du bot
 const CPB1   = "     -   &PB1    - Remmorchant phases du boss 1 + phases de la semaine prochaine\n"
 const CCAPS  = "     -   &CAPS   - Tout les caps de stats + courbe d'évolution\n"
 //Commandes secrète Admin
 //&Strat pour actionner les gifs raids dans le salon souhaité... A faire à l'heure souhaité
-
-
-//id des roles
-const roleT1 = "819898201305776158"
-const roleT2 = "819898824427438090"
-const roleT3 = "819899050693623858"
-const roleT4 = "819899231292096512"
-
-
-//id des messages pour retirer/ajouter role
-const msgRemoveT1 = "821521294041808896"
-const msgRemoveT2 = "821522260296073236"
-const msgRemoveT3 = "821522156340641904"
 
 //emoji classe
 const messageClass = "839811316520452097"
@@ -46,6 +29,7 @@ const Minstrelicon = "839773923415556107"
 const Huntericon = "839773923293396993"
 const Guardianicon = "839773923259318283"
 const Beorningicon = "839773923180937236"
+const Brawlericon = "891634147729215498"
 
 const roleRK = '839804210173313046'
 const roleWARD = '839804289870462978'
@@ -57,6 +41,7 @@ const roleMINI = '839804316688580610'
 const roleHUNT = '839804320392282113'
 const roleGUARD = '839804331423563776'
 const roleBEOR = '839804334102544394'
+const roleBRAW = '891634590488330250'
 
 //Const pour PB1
 const phaseB1 = ["Acide & Foudre", "Acide & Feu", "Feu & Foudre", "Feu & Acide", "Foudre & Acide", "Foudre & Feu"]
@@ -95,37 +80,8 @@ function stockMsg(guildId, channelId, msgId) {
         console.log("Impossible d'ajouté le message en mémoire : " + err);
     });
 }
-// reaction aux spam :
 
-/*function spamReaction (msg){
-    if(usersMap.has(msg)){
-        const userData = usersMap.get(msg)
-        let msgCount = userData.msgCount;
-        msgCount++
-        userData.msgCount = msgCount
-        usersMap.set(msg, userData)
-        
-    }else {
-        usersMap.set(msg, {
-            msgCount: 1,
-            lastMessage: msg
-        });
-        setTimeout(()=> {
-            usersMap.delete(msg)
-        }, 60000);
-    }
-    if(usersMap.size === ( 20 + getRandomInt(10))){
-        msg.channel.send(getRandomGif(gifHigh))
-        setTimeout(()=> {
-            msg.channel.send(getRandomGif(gifEmotion))
-        }, 40000);
-        setTimeout(()=> {
-            msg.channel.send(getRandomGif(gifHigh))
-        }, 80000);
-    }
-}*/
-
-//Strat des boss
+//Commandes de Gandalf
 
 function datePB1() {
    var x = Date.now() - 1615449600000
@@ -171,28 +127,6 @@ const gifAsk = [
     "https://64.media.tumblr.com/f730cd32b5830e5713495775f4c7a756/tumblr_mf8mepiFxY1qeeqito4_250.gif"
 
 ]
-const gifHigh = [
-    "https://64.media.tumblr.com/f730cd32b5830e5713495775f4c7a756/tumblr_mf8mepiFxY1qeeqito4_250.gif",
-    "https://media0.giphy.com/media/alHsoibvNDWyA/giphy.gif", 
-    "https://media0.giphy.com/media/9hFH5Juijroze/giphy.gif", 
-    "https://media1.giphy.com/media/Qs75BqLW44RrP0x6qL/giphy.gif",
-    "https://media.giphy.com/media/QZdI4k7q1BsSk/giphy.gif",
-    "https://media.giphy.com/media/l0IyiaAKygKOL924o/giphy.gif",
-    "https://media.giphy.com/media/HmIkHqoyhY9Vu/giphy.gif",
-    "https://media.giphy.com/media/L8gwJqDNAQORy/giphy.gif",
-    "https://media.giphy.com/media/z5VgvsFtpwC52/giphy.gif",
-    "https://media.giphy.com/media/ABNPHNbhi8I5q/giphy.gif",
-
-]
-const gifEmotion = [
-    "https://media3.giphy.com/media/oM5xTkZM5N1ZK/200w.webp?cid=ecf05e47ekf3vkvsdf04idys2gi1u8ii2s7sihom4yczr94s&rid=200w.webp",
-    "https://media0.giphy.com/media/AlhnCfu6SuSD6/giphy.gif",
-    "https://media2.giphy.com/media/HAx8k1165YkWQ/giphy.gif",
-    "https://media4.giphy.com/media/74ExXfqsbJ8l2/giphy.gif",
-    "https://media3.giphy.com/media/gqkKc6RI2sa7C/giphy.gif",
-    "https://media4.giphy.com/media/HS7ueRS113iN2/giphy.gif",
-    "https://media.giphy.com/media/S6sZaHdqsGYFO/giphy.gif",
-]
 
 const gifRaid = [
     ["https://64.media.tumblr.com/tumblr_maf90va4l91ru8yv8o2_250.gif", "Wype time !\n"],//raid
@@ -213,11 +147,7 @@ const gifRaid = [
 
 Client.on("ready", () =>{
     console.log("bot opérationnel");
-
     //récupère un message en mémoire :
-    stockMsg(idServer, "819676553235529759", msgRemoveT1)
-    stockMsg(idServer,"819676569207308348", msgRemoveT2)
-    stockMsg(idServer, "819676528992321607", msgRemoveT3)
     stockMsg(idServer, idChanGandalf, messageClass)
 });
 
@@ -238,44 +168,14 @@ Client.on("guildMemberAdd", member => {
 
     //Message de bienvenue
     member.guild.channels.cache.find(channel => channel.id === "819663166720049174").send(embed);
-    //member.guild.channels.cache.find(channel => channel.id === "819663166720049174").send("Bienvenue à toi " + member.displayName + " !\nNous sommes désormais **" + member.guild.memberCount + "** sur le serveur !");
-
-    //Ajoute un rôle
-    /*member.roles.add(roleT1).then(mbr => {
-        console.log("Rôle attribué avec succès")
-    }).catch(() => {
-        console.log("Le rôle n'a pas pu être attribué");
-    });*/
 });
-
-
-
-
 
 //Reactions au message :
 
 Client.on("messageReactionAdd", (reaction, user) => {
     if(user.bot) return;
 
-    if(reaction.message.id === msgRemoveT1){
-        if(reaction.emoji.name === "1️⃣"){
-            addRole(reaction, user, roleT1)
-        }
-    }else if(reaction.message.id === msgRemoveT2){
-        if(reaction.emoji.name === "1️⃣"){
-            addRole(reaction, user, roleT1)
-        }else if(reaction.emoji.name === "2️⃣"){
-            addRole(reaction, user, roleT2)
-        }
-    }else if(reaction.message.id === msgRemoveT3){
-        if(reaction.emoji.name === "1️⃣"){
-            addRole(reaction, user, roleT1)
-        }else if(reaction.emoji.name === "2️⃣"){
-            addRole(reaction, user, roleT2)
-        }else if(reaction.emoji.name === "3️⃣"){
-            addRole(reaction, user, roleT3)
-        }
-    }else if(reaction.message.id === messageClass){
+    if(reaction.message.id === messageClass){
         if(reaction.emoji.id === Runekeepericon){
             addRole(reaction, user, roleRK)
         }else if(reaction.emoji.id === Wardenicon){
@@ -296,6 +196,8 @@ Client.on("messageReactionAdd", (reaction, user) => {
             addRole(reaction, user, roleGUARD)
         }else if(reaction.emoji.id === Beorningicon){
             addRole(reaction, user, roleBEOR)
+        }else if(reaction.emoji.id === Brawlericon){
+            addRole(reaction, user, roleBRAW)
         }
     }
 
@@ -310,37 +212,12 @@ Client.on("messageReactionAdd", (reaction, user) => {
     */
 });
 
-
-
-
-
-
-
-
 //Quand une réaction est enlever :
 
 Client.on("messageReactionRemove", (reaction, user) => {
     if(user.bot) return;
 
-    if(reaction.message.id === msgRemoveT1){
-        if(reaction.emoji.name === "1️⃣"){
-            removeRole(reaction, user, roleT1)
-        }
-    }else if(reaction.message.id === msgRemoveT2){
-        if(reaction.emoji.name === "1️⃣"){
-            removeRole(reaction, user, roleT1)
-        }else if(reaction.emoji.name === "2️⃣"){
-            removeRole(reaction, user, roleT2)
-        }
-    }else if(reaction.message.id === msgRemoveT3){
-        if(reaction.emoji.name === "1️⃣"){
-            removeRole(reaction, user, roleT1)
-        }else if(reaction.emoji.name === "2️⃣"){
-            removeRole(reaction, user, roleT2)
-        }else if(reaction.emoji.name === "3️⃣"){
-            removeRole(reaction, user, roleT3)
-        }
-    }else if(reaction.message.id === messageClass){
+    if(reaction.message.id === messageClass){
         if(reaction.emoji.id === Runekeepericon){
             removeRole(reaction, user, roleRK)
         }else if(reaction.emoji.id === Wardenicon){
@@ -361,6 +238,8 @@ Client.on("messageReactionRemove", (reaction, user) => {
             removeRole(reaction, user, roleGUARD)
         }else if(reaction.emoji.id === Beorningicon){
             removeRole(reaction, user, roleBEOR)
+        }else if(reaction.emoji.id === Brawlericon){
+            removeRole(reaction, user, roleBRAW)
         }
     }
 });
@@ -377,9 +256,6 @@ Client.on("messageReactionRemove", (reaction, user) => {
 Client.on("message", content => {
     if(content.author.bot)return;
     if(content.channel.type == "dm") return;
-    /*if(content.channel.id === idChanSpam){
-        spamReaction(content)
-    }*/
 
     if(content.channel.id === idChanGandalf){
         //commandes
@@ -400,7 +276,7 @@ Client.on("message", content => {
         }
         content.delete()
     }
-    /*
+    /* faire le message des roles
     content.react("1️⃣");
     content.react("2️⃣"); 
     content.react("3️⃣"); 
@@ -415,29 +291,6 @@ Client.on("message", content => {
         content.react(Huntericon)
         content.react(Guardianicon)
         content.react(Beorningicon)
-    */
-
-    
-
-
-
-/*Commandes Admin Gif Raid Reactions
-    if(content.content == prefix + "Start" && content.member.hasPermission("ADMINISTRATOR")){
-        content.channel.send("```py\n\"Mise en place effectuée\"```")
-        console.log("Start of StartGifraid")
-        setInterval(() => {
-            var u = new Date().getHours()
-            var v = getRandomInt(6)
-            if((u === 20) && (v === 1)){
-                let w = getRandomGif(gifRaid)
-                content.channel.send(w[1] + w[0])
-                console.log("Gifs de raid dernier check : " + new Date())
-            }else{
-                console.log("Gifs de raid dernier check : " + new Date())
-            }
-            
-        },86400000)
-    }
     */
 
 });
